@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI - Discover CLI Tools for AI Agents</title>
+    <meta name="description" content="Discover and explore all CLI tools on your system. Optimized for AI agents with JSON export and package detection.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .content {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .code-block code {
+            color: #ce9178;
+        }
+
+        .command {
+            color: #4ec9b0;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        h2 {
+            color: #667eea;
+            margin: 2rem 0 1rem 0;
+            font-size: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        a {
+            color: #667eea;
+        }
+
+        .content a {
+            text-decoration: none;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .content a:hover {
+            color: #764ba2;
+            border-bottom-color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 CLI</h1>
+            <p class="subtitle">Discover and explore all CLI tools on your system</p>
+            <p>Optimized for AI agents • Fast scanning • Smart package detection</p>
+
+            <div class="cta-buttons">
+                <a href="https://github.com/cli-ai-org/cli" class="btn btn-primary">View on GitHub</a>
+                <a href="https://github.com/cli-ai-org/cli/releases/latest" class="btn btn-secondary">Download Beta</a>
+            </div>
+        </header>
+
+        <div class="content">
+            <h2>What is CLI?</h2>
+            <p>CLI is a command-line tool that discovers and catalogs all CLI tools available on your system. It scans your PATH, detects package managers (npm, pip, Homebrew, cargo, gem), and links tools to their source packages.</p>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Path Scanning</h3>
+                    <p>Discover all CLI tools across your $PATH in seconds</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📦</div>
+                    <h3>Package Detection</h3>
+                    <p>Identify tools from npm, pip, Homebrew, cargo, and gem</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Smart Linking</h3>
+                    <p>Connect CLI tools to their source packages automatically</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Optimized</h3>
+                    <p>Export JSON catalogs for AI agent consumption</p>
+                </div>
+            </div>
+
+            <h2>Quick Start</h2>
+
+            <div class="code-block">
+<span class="comment"># Clone the repository</span>
+<span class="command">git clone</span> https://github.com/cli-ai-org/cli.git
+<span class="command">cd</span> cli
+
+<span class="comment"># Build</span>
+<span class="command">go build</span> -o cli .
+
+<span class="comment"># List all CLI tools</span>
+<span class="command">./cli list</span>
+
+<span class="comment"># List with details</span>
+<span class="command">./cli list</span> --all
+
+<span class="comment"># Export for AI agents</span>
+<span class="command">./cli export</span> --pretty --output tools.json
+
+<span class="comment"># List packages</span>
+<span class="command">./cli packages</span>
+            </div>
+
+            <h2>Installation</h2>
+
+            <h3>From Source</h3>
+            <div class="code-block">
+<span class="command">git clone</span> https://github.com/cli-ai-org/cli.git
+<span class="command">cd</span> cli
+<span class="command">go build</span> -o cli .
+<span class="command">./cli</span> help
+            </div>
+
+            <h3>Using Go</h3>
+            <div class="code-block">
+<span class="command">go install</span> github.com/cli-ai-org/cli@latest
+            </div>
+
+            <h2>Features</h2>
+            <ul style="line-height: 2; margin-left: 2rem;">
+                <li>🚀 Fast scanning of thousands of CLI tools</li>
+                <li>📊 Comprehensive package manager support</li>
+                <li>💾 JSON export for programmatic access</li>
+                <li>📝 Optional metadata collection (versions, help text)</li>
+                <li>🎯 Designed for AI agent integration</li>
+                <li>🔧 Debug mode for troubleshooting</li>
+            </ul>
+
+            <h2>Use Cases</h2>
+            <ul style="line-height: 2; margin-left: 2rem;">
+                <li><strong>AI Agents:</strong> Let AI discover and use available CLI tools</li>
+                <li><strong>System Auditing:</strong> Catalog all installed CLI tools</li>
+                <li><strong>Package Management:</strong> Track which packages provide which tools</li>
+                <li><strong>Development:</strong> Quickly find available tools for automation</li>
+            </ul>
+
+            <h2>Documentation</h2>
+            <ul style="line-height: 2; margin-left: 2rem;">
+                <li><a href="https://github.com/cli-ai-org/cli/blob/main/README.md">README</a> - General overview</li>
+                <li><a href="https://github.com/cli-ai-org/cli/blob/main/COMMANDS.md">Commands Reference</a> - All available commands</li>
+                <li><a href="https://github.com/cli-ai-org/cli/blob/main/docs/AI_AGENT_USAGE.md">AI Agent Usage</a> - Integration guide</li>
+                <li><a href="https://github.com/cli-ai-org/cli/blob/main/PACKAGE_DETECTION.md">Package Detection</a> - How it works</li>
+            </ul>
+
+            <h2>Contributing</h2>
+            <p>This is a beta release! We welcome feedback and contributions. Please visit our <a href="https://github.com/cli-ai-org/cli">GitHub repository</a> to report issues or suggest features.</p>
+
+            <div class="cta-buttons" style="margin-top: 3rem;">
+                <a href="https://github.com/cli-ai-org/cli" class="btn btn-primary">Get Started on GitHub</a>
+                <a href="https://github.com/cli-ai-org/cli/issues" class="btn btn-secondary">Report an Issue</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built with ❤️ for AI agents and developers</p>
+            <p>© 2026 CLI Project • <a href="https://github.com/cli-ai-org/cli" style="color: white;">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+</html>
