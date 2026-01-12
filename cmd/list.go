@@ -63,8 +63,9 @@ Use --json flag to output in JSON format for programmatic access or AI agent con
 				}
 			}
 
-			// Packages to exclude (development libraries, codecs, not user-facing CLIs)
+			// Packages to exclude (libraries, servers, daemons, not user-facing CLIs)
 			excludePackages := map[string]bool{
+				// Development libraries
 				"gcc": true, "netpbm": true, "gd": true, "gdal": true,
 				"gettext": true, "libtiff": true, "libpng": true, "fontconfig": true,
 				"glib": true, "hdf5": true, "graphviz": true, "gts": true,
@@ -93,19 +94,62 @@ Use --json flag to output in JSON format for programmatic access or AI agent con
 				"gflags": true, "fizz": true, "epsilon": true, "unixodbc": true,
 				"openssl@3": true, "shared-mime-info": true,
 				"apache-arrow": true, "protobuf": true, "protobuf@29": true,
+				// Python/Ruby library packages (not CLIs)
+				"aiosmtpd": true, "comm": true, "date": true, "distro": true,
+				"ecdsa": true, "email_validator": true, "httpx": true, "logger": true,
+				"pi": true, "screen": true, "sync": true, "typer": true,
+				"fonttools": true, "jsonpointer": true, "jsonschema": true,
+				"pycodestyle": true, "pyflakes": true, "tqdm": true, "tabulate": true,
+				"watchfiles": true, "webdriverdownloader": true,
+				// Servers/Daemons
+				"gunicorn": true, "uvicorn": true, "postgresql@14": true, "postgresql@17": true,
+				"redis": true, "transmission-cli": true,
+				// Editor variants and utilities
+				"emacs": true, "vim": true, "zsh": true, "grep": true,
+				// Compression utilities
+				"zstd": true, "xxhash": true,
+				// Development utilities
+				"tree-sitter": true, "luajit": true, "openssl": true, "pinentry": true,
+				"numpy": true, "librsvg": true, "telnet": true, "ssh-copy-id": true,
+				"solidity": true, "thrift": true, "fbthrift": true, "z3": true,
 			}
 
-			// Get unique CLI names that are linked to packages
-			// Exclude packages with too many binaries (>10) or known dev libraries
+			// Build a map of package -> main binary name
+			packageMainBinary := make(map[string]string)
+			for _, tool := range linkedTools {
+				if tool.PackageName != "" {
+					// For packages, prefer the binary that matches the package name
+					if tool.Name == tool.PackageName {
+						packageMainBinary[tool.PackageName] = tool.Name
+					} else if _, exists := packageMainBinary[tool.PackageName]; !exists {
+						// If no exact match yet, use first binary
+						packageMainBinary[tool.PackageName] = tool.Name
+					}
+				}
+			}
+
+			// Get CLI tools - show only main binary per package
 			seenTools := make(map[string]bool)
 			var cliTools []string
 			for _, tool := range linkedTools {
 				pkgName := tool.PackageName
-				if pkgName != "" && !seenTools[tool.Name] {
-					// Skip if package has too many binaries or is in exclude list
-					if pkgBinaryCount[pkgName] > 10 || excludePackages[pkgName] {
-						continue
-					}
+				if pkgName == "" || seenTools[tool.Name] {
+					continue
+				}
+
+				// Skip excluded packages
+				if excludePackages[pkgName] {
+					continue
+				}
+
+				// Skip packages with too many binaries (>10) - likely libraries
+				if pkgBinaryCount[pkgName] > 10 {
+					continue
+				}
+
+				// Only show the main binary for each package
+				mainBinary := packageMainBinary[pkgName]
+				if tool.Name == mainBinary {
 					cliTools = append(cliTools, tool.Name)
 					seenTools[tool.Name] = true
 				}
