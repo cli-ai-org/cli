@@ -212,9 +212,68 @@ Internal packages go in the `internal/` directory and contain the core business 
 
 ## Contributing
 
-This is the initial scaffolding. Features and contribution guidelines coming soon.
+We welcome contributions! Here's how you can help:
+
+### Reporting Issues
+
+- **Bug Reports**: Open an issue with details about the bug, including steps to reproduce
+- **Feature Requests**: Open an issue describing the feature and why it would be useful
+- **Questions**: Feel free to open an issue for questions about usage or development
+
+### Contributing Code
+
+1. **Fork the repository** on GitHub
+2. **Clone your fork** locally:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/cli.git
+   cd cli
+   ```
+3. **Create a branch** for your changes:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+4. **Make your changes** and test them:
+   ```bash
+   go build -o cli .
+   ./cli list  # Test your changes
+   ```
+5. **Commit your changes** with clear commit messages:
+   ```bash
+   git add .
+   git commit -m "Add feature: description of your changes"
+   ```
+6. **Push to your fork**:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+7. **Open a Pull Request** on GitHub with:
+   - Clear description of what you changed and why
+   - Any related issue numbers (e.g., "Fixes #123")
+   - Test results showing your changes work
+
+### Development Guidelines
+
+- **Code Style**: Follow standard Go conventions (run `go fmt`)
+- **Testing**: Test your changes thoroughly before submitting
+- **Documentation**: Update README.md if adding new features
+- **Commit Messages**: Use clear, descriptive commit messages
+- **Small PRs**: Keep pull requests focused on a single feature or fix
+
+### Areas to Contribute
+
+- **Package Manager Support**: Add detection for more package managers (Poetry, Conda, etc.)
+- **Filtering Improvements**: Better heuristics for identifying actual CLI tools
+- **Performance**: Optimize scanning for large systems
+- **Documentation**: Improve docs, add examples, write guides
+- **Testing**: Add unit tests and integration tests
+- **Bug Fixes**: Fix reported issues
+
+### Getting Help
+
+- Open an issue if you need help or have questions
+- Check existing issues and PRs to avoid duplicates
+- Feel free to ask questions in your PR
 
 ## License
 
-TBD
-# cli
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
