@@ -1,4 +1,4 @@
-# cli-ai
+# cli
 
 A CLI tool to discover and explore all command-line tools installed on your system.
 
@@ -28,7 +28,7 @@ If you don't have Go installed, visit [https://golang.org/dl/](https://golang.or
 go mod download
 
 # Build the binary
-go build -o cli-ai .
+go build -o cli .
 
 # Or install it to your $GOPATH/bin
 go install .
@@ -40,75 +40,75 @@ go install .
 
 ```bash
 # Show main help page with all commands
-cli-ai help
+cli help
 
 # Show help for a specific command
-cli-ai list --help
-cli-ai debug --help
+cli list --help
+cli debug --help
 ```
 
 ### Commands
 
-#### `cli-ai list` - List CLI Tools
+#### `cli list` - List CLI Tools
 
 List all available CLI tools discovered on your system.
 
 ```bash
 # List all CLI tools (simple output)
-cli-ai list
+cli list
 
 # List with detailed information and full paths
-cli-ai list --all
-cli-ai list -a
+cli list --all
+cli list -a
 
 # List with verbose output
-cli-ai list --verbose
-cli-ai list -v
+cli list --verbose
+cli list -v
 
 # Combine flags
-cli-ai list --all --verbose
+cli list --all --verbose
 
 # List in JSON format (for AI agents)
-cli-ai list --json
+cli list --json
 ```
 
-#### `cli-ai export` - Export Tools Catalog for AI Agents
+#### `cli export` - Export Tools Catalog for AI Agents
 
 Export a comprehensive catalog of all CLI tools in JSON format, optimized for AI agent consumption.
 
 ```bash
 # Export catalog to stdout
-cli-ai export
+cli export
 
 # Export to file with pretty formatting
-cli-ai export --pretty --output tools.json
+cli export --pretty --output tools.json
 
 # Export with metadata (version, help text) - slower but more detailed
-cli-ai export --with-meta --output tools-detailed.json
+cli export --with-meta --output tools-detailed.json
 
 # Pipe to other tools
-cli-ai export | jq '.tools[] | .name'
+cli export | jq '.tools[] | .name'
 ```
 
 **AI Agent Usage**: See [docs/AI_AGENT_USAGE.md](docs/AI_AGENT_USAGE.md) for comprehensive AI integration guide.
 
-#### `cli-ai debug` - Debug Package Information
+#### `cli debug` - Debug Package Information
 
 Show detailed debug information for CLI tools and packages.
 
 ```bash
 # Debug a specific package
-cli-ai debug npm
-cli-ai debug python
-cli-ai debug docker
+cli debug npm
+cli debug python
+cli debug docker
 
 # Debug all packages
-cli-ai debug --all
-cli-ai debug -a
+cli debug --all
+cli debug -a
 
 # Debug with verbose output
-cli-ai debug npm --verbose
-cli-ai debug --all -v
+cli debug npm --verbose
+cli debug --all -v
 ```
 
 ### Global Flags
@@ -117,44 +117,44 @@ These flags work with any command:
 
 ```bash
 -v, --verbose          Enable verbose output
---config <file>        Specify config file (default: $HOME/.cli-ai.yaml)
+--config <file>        Specify config file (default: $HOME/.cli.yaml)
 ```
 
 ### Examples
 
 ```bash
 # Quick list of all tools
-cli-ai list
+cli list
 
 # Detailed view with paths
-cli-ai list --all
+cli list --all
 
 # Export for AI agents
-cli-ai export --pretty --output tools.json
+cli export --pretty --output tools.json
 
 # Debug specific package
-cli-ai debug nodejs
+cli debug nodejs
 
 # Debug all packages with verbose output
-cli-ai debug --all --verbose
+cli debug --all --verbose
 ```
 
 ### AI Agent Integration
 
-cli-ai is designed to make CLI tools discoverable to AI agents:
+cli is designed to make CLI tools discoverable to AI agents:
 
 ```bash
 # Export all tools in JSON format
-cli-ai export --output tools.json
+cli export --output tools.json
 
 # Quick JSON output
-cli-ai list --json
+cli list --json
 
 # Check if a tool exists (for AI agents)
-cli-ai list --json | jq -e '.[] | select(.name=="docker")'
+cli list --json | jq -e '.[] | select(.name=="docker")'
 
 # Get tool path programmatically
-cli-ai list --json | jq -r '.[] | select(.name=="git") | .path'
+cli list --json | jq -r '.[] | select(.name=="git") | .path'
 ```
 
 For comprehensive AI agent integration examples, see [docs/AI_AGENT_USAGE.md](docs/AI_AGENT_USAGE.md).

@@ -1,0 +1,50 @@
+{
+  "total_tools": 5,
+  "search_paths": [
+    "/usr/local/bin",
+    "/usr/bin",
+    "/bin"
+  ],
+  "tools": [
+    {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "size": 2847216,
+      "is_symlink": false,
+      "version": "git version 2.39.2",
+      "help_text": "usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]\n           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n           [--super-prefix=<path>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n... (truncated)"
+    },
+    {
+      "name": "node",
+      "path": "/usr/local/bin/node",
+      "size": 98234896,
+      "is_symlink": true,
+      "symlink_to": "../lib/node_modules/nodejs/bin/node",
+      "version": "v20.10.0"
+    },
+    {
+      "name": "npm",
+      "path": "/usr/local/bin/npm",
+      "size": 2145,
+      "is_symlink": true,
+      "symlink_to": "../lib/node_modules/npm/bin/npm-cli.js",
+      "version": "npm/10.2.3 node/v20.10.0"
+    },
+    {
+      "name": "docker",
+      "path": "/usr/local/bin/docker",
+      "size": 67854336,
+      "is_symlink": false,
+      "version": "Docker version 24.0.7, build afdd53b"
+    },
+    {
+      "name": "python3",
+      "path": "/usr/bin/python3",
+      "size": 32768,
+      "is_symlink": true,
+      "symlink_to": "python3.11",
+      "version": "Python 3.11.6"
+    }
+  ],
+  "generated_at": "2025-01-10T15:30:00Z"
+}
