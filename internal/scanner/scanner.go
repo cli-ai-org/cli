@@ -46,6 +46,13 @@ func (s *Scanner) ScanAll() ([]string, error) {
 				continue
 			}
 
+			name := entry.Name()
+
+			// Filter out non-CLI tools
+			if !shouldIncludeTool(name) {
+				continue
+			}
+
 			// Check if file is executable
 			info, err := entry.Info()
 			if err != nil {
@@ -53,7 +60,6 @@ func (s *Scanner) ScanAll() ([]string, error) {
 			}
 
 			if isExecutable(info) {
-				name := entry.Name()
 				if !seen[name] {
 					seen[name] = true
 					tools = append(tools, name)
@@ -69,6 +75,92 @@ func (s *Scanner) ScanAll() ([]string, error) {
 func isExecutable(info os.FileInfo) bool {
 	mode := info.Mode()
 	return mode&0111 != 0
+}
+
+// shouldIncludeTool filters out system daemons, test utilities, and internal tools
+func shouldIncludeTool(name string) bool {
+	lower := strings.ToLower(name)
+
+	// Skip Python cache and obvious non-tools
+	if name == "__pycache__" || name == "." || name == ".." {
+		return false
+	}
+
+	// Skip DTrace scripts (end with .d)
+	if strings.HasSuffix(name, ".d") {
+		return false
+	}
+
+	// Skip obvious test utilities and demos
+	excludePatterns := []string{
+		"test", "demo", "bench", "example", "sample",
+		"_test", "_demo", "_bench", "_example",
+	}
+	for _, pattern := range excludePatterns {
+		if strings.Contains(lower, pattern) {
+			return false
+		}
+	}
+
+	// Skip server/daemon/agent patterns
+	if strings.HasSuffix(lower, "server") || strings.HasSuffix(lower, "agent") ||
+	   strings.HasSuffix(lower, "daemon") || strings.HasSuffix(lower, "serverd") {
+		// Allow some legitimate tools
+		allowed := []string{"transmission-daemon", "jupyter-server"}
+		isAllowed := false
+		for _, allow := range allowed {
+			if lower == allow {
+				isAllowed = true
+				break
+			}
+		}
+		if !isAllowed {
+			return false
+		}
+	}
+
+	// Skip common daemon patterns (but allow some legitimate tools)
+	daemonExclusions := []string{
+		"bluetoothd", "coreaudiod", "cfprefsd", "distnoted",
+		"launchd", "notifyd", "securityd", "syslogd", "configd",
+		"kerneleventd", "powerd", "cupsd", "httpd", "sshd",
+		"snmpd", "named", "ntpd", "syslogd",
+		"btleserver", "btleserveragent",
+	}
+	for _, daemon := range daemonExclusions {
+		if lower == daemon {
+			return false
+		}
+	}
+
+	// Skip Apple internal tools (specific patterns)
+	appleInternalPrefixes := []string{
+		"appleh", "assetcache", "bluetool", "bootcache",
+		"createdom", "domcount", "domprint", "derez",
+		"devtools", "directory", "enumval", "getfileinfo",
+		"ioaccel", "iomfb", "iosdebug", "kernel",
+		"pparse", "psviwriter", "password", "protocol",
+		"redirect", "resmerger", "rez", "sax", "scmprint",
+		"senumval", "safeeject", "setfile", "splitforks",
+		"stdin", "svtav1", "wireless", "xinclude",
+	}
+	for _, prefix := range appleInternalPrefixes {
+		if strings.HasPrefix(lower, prefix) {
+			return false
+		}
+	}
+
+	// Skip more system internals
+	systemInternals := []string{
+		"mDNSResponder", "mDNSResponderHelper",
+	}
+	for _, internal := range systemInternals {
+		if name == internal {
+			return false
+		}
+	}
+
+	return true
 }
 
 // GetPaths returns the list of PATH directories
@@ -93,6 +185,13 @@ func (s *Scanner) ScanAllDetailed() ([]models.Tool, error) {
 				continue
 			}
 
+			name := entry.Name()
+
+			// Filter out non-CLI tools
+			if !shouldIncludeTool(name) {
+				continue
+			}
+
 			// Check if file is executable
 			info, err := entry.Info()
 			if err != nil {
@@ -100,7 +199,6 @@ func (s *Scanner) ScanAllDetailed() ([]models.Tool, error) {
 			}
 
 			if isExecutable(info) {
-				name := entry.Name()
 				if !seen[name] {
 					seen[name] = true
 					fullPath := filepath.Join(dir, name)

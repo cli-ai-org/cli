@@ -4,13 +4,15 @@ import (
 	"os"
 
 	"github.com/cli-ai-org/cli/internal/display"
+	"github.com/cli-ai-org/cli/internal/packages"
 	"github.com/cli-ai-org/cli/internal/scanner"
 	"github.com/spf13/cobra"
 )
 
 var (
-	listAll  bool
-	listJSON bool
+	listAll          bool
+	listJSON         bool
+	listPackagesOnly bool
 )
 
 // listCmd represents the list command
@@ -40,11 +42,34 @@ Use --json flag to output in JSON format for programmatic access or AI agent con
 		d := display.New(os.Stdout)
 
 		// Use detailed scan if JSON or --all is requested
-		if listJSON || listAll {
+		if listJSON || listAll || listPackagesOnly {
 			tools, err := s.ScanAllDetailed()
 			if err != nil {
 				cmd.PrintErrf("Error scanning for tools: %v\n", err)
 				os.Exit(1)
+			}
+
+			// Filter to packages-only if requested
+			if listPackagesOnly {
+				detector := packages.NewDetector()
+				pkgs, err := detector.DetectAll()
+				if err == nil {
+					linker := packages.NewLinker(pkgs)
+					linker.LinkTools(tools)
+
+					// Filter to only tools that have a package
+					var filteredTools []string
+					for _, tool := range tools {
+						if tool.PackageName != "" {
+							filteredTools = append(filteredTools, tool.Name)
+						}
+					}
+
+					if !listJSON {
+						d.ShowTools(filteredTools)
+						return
+					}
+				}
 			}
 
 			if listJSON {
@@ -71,4 +96,5 @@ func init() {
 	rootCmd.AddCommand(listCmd)
 	listCmd.Flags().BoolVarP(&listAll, "all", "a", false, "show detailed information including paths")
 	listCmd.Flags().BoolVarP(&listJSON, "json", "j", false, "output in JSON format for AI agents")
+	listCmd.Flags().BoolVarP(&listPackagesOnly, "packages-only", "p", false, "show only tools from installed packages (npm, pip, brew, etc.)")
 }
